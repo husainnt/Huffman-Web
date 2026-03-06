@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huffman Compression</title>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="card">
+
+    <h1>Huffman Compression</h1>
+
+    <form id="upload-form" enctype="multipart/form-data">
+
+        <input type="file" id="file-input" name="file" required hidden>
+
+        <div id="upload-btn" class="glow-button">
+            📂 Drag & Drop or Click to Upload
+        </div>
+
+        <!-- Important: Must match Flask backend -->
+        <select name="action" class="dropdown" required>
+            <option value="compress">Compress</option>
+            <option value="decompress">Decompress</option>
+        </select>
+
+        <button type="submit" class="submit-btn">
+            Submit
+        </button>
+
+    </form>
+
+    <p id="message"></p>
+
+</div>
+
+
+<!-- Compression Stats -->
+<div class="card stats-card">
+    <h2>Compression Stats</h2>
+    <pre id="stats"></pre>
+</div>
+
+
+<!-- Huffman Tree Visualization -->
+<div class="card tree-card">
+    <h2>Huffman Tree Visualization</h2>
+    <div id="tree"></div>
+</div>
+
+
+<script src="/static/script.js"></script>
+
+</body>
+</html>

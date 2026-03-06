@@ -1,0 +1,107 @@
+
+body {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    padding-bottom: 120px;
+}
+.card {
+    margin-top: 80px;
+    margin-bottom: 60px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.7), 0 0 60px rgba(0, 255, 255, 0.4);
+    padding: 30px;
+    width: 40%;
+    margin: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+body:hover .card {
+    transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+}
+
+
+h1 {
+    font-size: 2rem;
+    text-shadow: 0 0 10px cyan, 0 0 20px cyan;
+}
+
+
+form {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px cyan;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    transition: 0.3s ease-in-out;
+}
+
+form:hover {
+    box-shadow: 0 0 40px cyan, 0 0 80px rgba(0, 255, 255, 0.6);
+}
+
+
+.dropdown {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+
+.glow-button {
+    display: inline-block;
+    background: transparent;
+    border: 2px solid cyan;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: cyan;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 10px cyan;
+    transition: all 0.3s ease-in-out;
+}
+
+.glow-button:hover {
+    background: cyan;
+    color: black;
+    box-shadow: 0 0 20px cyan, 0 0 40px cyan;
+}
+
+.glow-button:active {
+    transform: scale(0.9);
+}
+
+
+button {
+    background: cyan;
+    color: black;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px cyan;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #00f0ff;
+    box-shadow: 0 0 15px cyan;
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
