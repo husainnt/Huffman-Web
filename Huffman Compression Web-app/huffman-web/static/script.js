@@ -32,11 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 /* Show statistics */
                 if (result.stats) {
                     statsBox.innerText = JSON.stringify(result.stats, null, 2);
-
-                    /* Draw tree if tree data exists */
-                    if (result.stats.tree) {
-                        drawTree(result.stats.tree);
-                    }
                 }
 
                 /* Add download link */
@@ -112,59 +107,6 @@ document.addEventListener("DOMContentLoaded", function () {
             uploadBtn.innerText = "📂 " + fileInput.files[0].name;
         }
     });
-
-
-    /* ------------------------------
-       TREE VISUALIZATION (D3)
-    ------------------------------ */
-
-    function drawTree(treeData) {
-
-        d3.select("#tree").selectAll("*").remove();
-
-        const width = 700;
-        const height = 400;
-
-        const svg = d3.select("#tree")
-            .append("svg")
-            .attr("width", width)
-            .attr("height", height);
-
-        const root = d3.hierarchy(treeData);
-
-        const treeLayout = d3.tree().size([width - 50, height - 50]);
-
-        treeLayout(root);
-
-        svg.selectAll("line")
-            .data(root.links())
-            .enter()
-            .append("line")
-            .attr("x1", d => d.source.x + 40)
-            .attr("y1", d => d.source.y + 20)
-            .attr("x2", d => d.target.x + 40)
-            .attr("y2", d => d.target.y + 20)
-            .style("stroke", "#00ffff");
-
-        svg.selectAll("circle")
-            .data(root.descendants())
-            .enter()
-            .append("circle")
-            .attr("cx", d => d.x + 40)
-            .attr("cy", d => d.y + 20)
-            .attr("r", 10)
-            .style("fill", "#00ffff");
-
-        svg.selectAll("text")
-            .data(root.descendants())
-            .enter()
-            .append("text")
-            .attr("x", d => d.x + 40)
-            .attr("y", d => d.y + 35)
-            .attr("text-anchor", "middle")
-            .style("fill", "white")
-            .text(d => d.data.name || d.data.value);
-    }
 
 
     /* ------------------------------

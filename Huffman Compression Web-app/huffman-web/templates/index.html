@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Huffman Compression</title>
+    <title>Huffman Compression Tool</title>
 
-    <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
@@ -16,48 +16,47 @@
 
 <canvas id="bg"></canvas>
 
-<div class="card">
+<div class="container">
 
-    <h1>Huffman Compression</h1>
+    <div class="card">
 
-    <form id="upload-form" enctype="multipart/form-data">
+        <h1>Huffman Compression</h1>
 
-        <input type="file" id="file-input" name="file" required hidden>
+        <form id="upload-form" enctype="multipart/form-data">
 
-        <div id="upload-btn" class="glow-button">
-            📂 Drag & Drop or Click to Upload
-        </div>
+            <input type="file" id="file-input" name="file" required hidden>
 
-        <!-- Important: Must match Flask backend -->
-        <select name="action" class="dropdown" required>
-            <option value="compress">Compress</option>
-            <option value="decompress">Decompress</option>
-        </select>
+            <div id="upload-btn" class="glow-button">
+                📂 Drag & Drop or Click to Upload
+            </div>
 
-        <button type="submit" class="submit-btn">
-            Submit
-        </button>
+            <select name="action" class="dropdown" required>
+                <option value="compress">Compress</option>
+                <option value="decompress">Decompress</option>
+            </select>
 
-    </form>
+            <button type="submit" class="submit-btn">
+                Submit
+            </button>
 
-    <p id="message"></p>
+        </form>
+
+        <p id="message"></p>
+
+    </div>
+
+
+    <div class="card stats-card">
+
+        <h2>Compression Statistics</h2>
+
+        <pre id="stats">
+Upload a file to view compression analytics...
+        </pre>
+
+    </div>
 
 </div>
-
-
-<!-- Compression Stats -->
-<div class="card stats-card">
-    <h2>Compression Stats</h2>
-    <pre id="stats"></pre>
-</div>
-
-
-<!-- Huffman Tree Visualization -->
-<div class="card tree-card">
-    <h2>Huffman Tree Visualization</h2>
-    <div id="tree"></div>
-</div>
-
 
 <script src="/static/script.js"></script>
 

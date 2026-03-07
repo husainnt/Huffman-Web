@@ -27,13 +27,14 @@ public:
 
 class Huffman
 {
+
 public:
     unordered_map<char, string> encodeMap;
     unordered_map<string, char> decodeMap;
 
     void generateCodes(TreeNode *root, string code);
-    void Encode(const string &inputFile, const string &outputFile);
-    void Decode(const string &inputFile, const string &outputFile);
+    void Encode(string inputFile, string outputFile);
+    void Decode(string inputFile, string outputFile);
 };
 
 void Huffman::generateCodes(TreeNode *root, string code)
@@ -51,7 +52,7 @@ void Huffman::generateCodes(TreeNode *root, string code)
     generateCodes(root->right, code + "1");
 }
 
-void Huffman::Encode(const string &inputFile, const string &outputFile)
+void Huffman::Encode(string inputFile, string outputFile)
 {
     encodeMap.clear();
     decodeMap.clear();
@@ -61,7 +62,7 @@ void Huffman::Encode(const string &inputFile, const string &outputFile)
 
     if (!input || !output)
     {
-        cerr << "File open error\n";
+        cout << "{\"status\":\"error\",\"message\":\"file error\"}";
         return;
     }
 
@@ -85,15 +86,14 @@ void Huffman::Encode(const string &inputFile, const string &outputFile)
 
     while (pq.size() > 1)
     {
-        TreeNode *l = pq.top();
+        TreeNode *left = pq.top();
+        pq.pop();
+        TreeNode *right = pq.top();
         pq.pop();
 
-        TreeNode *r = pq.top();
-        pq.pop();
-
-        TreeNode *parent = new TreeNode('\0', l->freq + r->freq);
-        parent->left = l;
-        parent->right = r;
+        TreeNode *parent = new TreeNode('\0', left->freq + right->freq);
+        parent->left = left;
+        parent->right = right;
 
         pq.push(parent);
     }
@@ -116,7 +116,6 @@ void Huffman::Encode(const string &inputFile, const string &outputFile)
     }
 
     string encoded = "";
-
     while (input.get(ch))
         encoded += encodeMap[ch];
 
@@ -147,12 +146,6 @@ void Huffman::Encode(const string &inputFile, const string &outputFile)
         }
     }
 
-    if (count)
-    {
-        buffer <<= (8 - count);
-        output.write((char *)&buffer, 1);
-    }
-
     input.close();
     output.close();
 
@@ -173,7 +166,7 @@ void Huffman::Encode(const string &inputFile, const string &outputFile)
     cout << "}";
 }
 
-void Huffman::Decode(const string &inputFile, const string &outputFile)
+void Huffman::Decode(string inputFile, string outputFile)
 {
     decodeMap.clear();
 
@@ -182,7 +175,7 @@ void Huffman::Decode(const string &inputFile, const string &outputFile)
 
     if (!input || !output)
     {
-        cerr << "File open error\n";
+        cout << "{\"status\":\"error\",\"message\":\"file error\"}";
         return;
     }
 
@@ -207,7 +200,6 @@ void Huffman::Decode(const string &inputFile, const string &outputFile)
     input.read((char *)&extraBits, sizeof(int));
 
     string bits = "";
-
     char byte;
 
     while (input.read(&byte, 1))
@@ -238,7 +230,7 @@ int main(int argc, char *argv[])
 {
     if (argc != 4)
     {
-        cerr << "Usage: program input output compress/decompress\n";
+        cout << "{\"status\":\"error\",\"message\":\"invalid arguments\"}";
         return 1;
     }
 
@@ -253,7 +245,7 @@ int main(int argc, char *argv[])
     else if (mode == "decompress")
         h.Decode(input, output);
     else
-        cerr << "Invalid mode\n";
+        cout << "{\"status\":\"error\",\"message\":\"invalid mode\"}";
 
     return 0;
 }
